@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>심층강화학습 심화 — Deep Reinforcement Learning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+  <meta name="description" content="심층강화학습(Deep RL) 심화 강의 교재 — GitHub 기반 온라인 교재" />
+
+  <!-- KaTeX 수식 렌더링용 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+
+  <!-- Docsify 기본 테마 (vue 테마, 사이드바 포함) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+
+  <style>
+    :root {
+      --theme-color: #2f6feb;
+    }
+    body { -webkit-font-smoothing: antialiased; }
+    .markdown-section { max-width: 900px; }
+    .markdown-section img { border-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+    .markdown-section code { background: #f3f3f3; }
+
+    /* 코드 주석 — 이 교재는 한글 주석이 설명의 절반이라, 흐린 회색 대신
+       Colab/GitHub 처럼 녹색 · 정자체로 또렷하게 보여준다 */
+    .markdown-section pre .token.comment,
+    .markdown-section pre .token.triple-quoted-string {
+      color: #1a7f37;
+      font-style: normal;
+    }
+
+    /* README 상단의 Pages 링크 — GitHub 에서 볼 때만 필요하므로 사이트에서는 숨긴다 */
+    .markdown-section .gh-only { display: none; }
+
+    /* 페이지별 오류 신고 상자 */
+    .ada-report { margin: 3rem 0 1rem; border-top: 1px solid #eaecef; padding-top: 1rem; }
+    .ada-report summary { cursor: pointer; color: #6a737d; font-size: .9rem; }
+    .ada-report summary:hover { color: var(--theme-color); }
+    .ada-report[open] summary { color: var(--theme-color); margin-bottom: .8rem; }
+    .ada-report .hint { font-size: .82rem; color: #6a737d; line-height: 1.6; margin: 0 0 .8rem; }
+    .ada-report input, .ada-report textarea {
+      width: 100%; box-sizing: border-box; padding: .5rem .6rem; margin-bottom: .6rem;
+      border: 1px solid #d1d5da; border-radius: 4px; font: inherit; font-size: .9rem;
+    }
+    .ada-report textarea { resize: vertical; }
+    .ada-report .ada-send {
+      display: inline-block; background: var(--theme-color); color: #fff;
+      border-radius: 4px; padding: .5rem 1rem; font-size: .9rem;
+      cursor: pointer; text-decoration: none;
+    }
+    .ada-report .ada-send:hover { opacity: .88; color: #fff; text-decoration: none; }
+    .ada-report .warn { color: #b34; font-size: .82rem; margin-left: .6rem; }
+  </style>
+</head>
+<body>
+  <div id="app">로딩 중...</div>
+
+  <script>
+    // ── 오류 신고 상자 ────────────────────────────────────────────────
+    var ADA = {
+      repo: 'https://github.com/AI-BoostCamp/ReinforcementLearning',
+      label: '교재오류',
+      max: 5000,                       // 프리필 URL 이 지나치게 길어지는 것을 막는다
+
+      reportBox: function (file) {
+        return '<div class="ada-report" data-file="' + file + '">'
+          + '<details><summary>내용 오류 · 깨진 수식 · 잘못된 그림을 발견하면 기록해 주세요</summary>'
+          + '<p class="hint">아래에 적고 <b>GitHub 에 등록</b>을 누르면 내용이 채워진 이슈 작성 화면이 열립니다. '
+          + '거기서 <b>Submit new issue</b> 를 눌러야 등록이 끝납니다. (GitHub 로그인 필요)</p>'
+          + '<input type="text" class="ada-where" placeholder="위치 — 예: 1.3.4 · 그림 · 실습 2.3.1">'
+          + '<textarea class="ada-what" rows="4" placeholder="무엇이 잘못되었는지 적어 주세요."></textarea>'
+          + '<a class="ada-send" href="#" target="_blank" rel="noopener">GitHub 에 등록</a>'
+          + '<span class="warn"></span>'
+          + '</details></div>';
+      },
+
+      bind: function () {
+        document.querySelectorAll('.ada-report').forEach(function (box) {
+          var btn = box.querySelector('.ada-send');
+          if (!btn || btn.dataset.bound) return;
+          btn.dataset.bound = '1';
+          btn.addEventListener('click', function (ev) {
+            var warn  = box.querySelector('.warn');
+            var what  = box.querySelector('.ada-what').value.trim();
+            var where = box.querySelector('.ada-where').value.trim();
+            if (!what) { ev.preventDefault(); warn.textContent = '내용을 적어 주세요.'; return; }
+
+            var file = box.dataset.file;                 // 라우터가 주는 값은 URL 인코딩되어 있다
+            var nice = decodeURIComponent(file);         // 사람이 읽을 경로
+            var h1   = document.querySelector('.markdown-section h1');
+            var name = h1 ? h1.textContent.trim() : nice.replace(/\.md$/, '');
+            var url  = location.origin + location.pathname + '#/' + file.replace(/\.md$/, '');
+
+            var body = '**페이지**: `' + nice + '`\n'
+                     + '**주소**: [' + name + '](' + url + ')\n'
+                     + (where ? '**위치**: ' + where + '\n' : '')
+                     + '\n' + what + '\n\n'
+                     + '<sub>교재 페이지 하단의 오류 신고로 작성됨</sub>';
+
+            if (body.length > ADA.max) {
+              ev.preventDefault();
+              warn.textContent = '내용이 너무 깁니다. 줄여 주세요.'; return;
+            }
+            warn.textContent = '';
+            // href 를 채워 두면 브라우저가 평범한 링크로 새 탭을 연다 — 팝업 차단과 무관하다
+            btn.href = ADA.repo + '/issues/new'
+              + '?labels=' + encodeURIComponent(ADA.label)
+              + '&title='  + encodeURIComponent('[교재오류] ' + name)
+              + '&body='   + encodeURIComponent(body);
+          });
+        });
+      }
+    };
+
+    window.$docsify = {
+      name: 'DRL 심화',
+      repo: 'https://github.com/AI-BoostCamp/ReinforcementLearning',
+      loadSidebar: true,          // _sidebar.md 를 목차로 사용
+      loadNavbar: false,
+      subMaxLevel: 2,             // 사이드바에 ##, ### 제목까지 자동 표시
+      auto2top: true,             // 페이지 이동 시 맨 위로 스크롤
+      homepage: 'README.md',      // "/" 경로에서 보여줄 첫 화면
+      coverpage: false,
+      alias: {
+        // 장 폴더 하위 어디서든 같은 사이드바를 쓰게 함
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '교재 내용 검색...',
+        noData: '검색 결과가 없습니다.',
+        depth: 4
+      },
+      copyCode: {
+        buttonText: '복사',
+        errorText: '실패',
+        successText: '복사됨'
+      },
+      pagination: {
+        crossChapter: true,
+        crossChapterText: true
+      },
+
+      // 페이지마다 하단에 오류 신고 상자를 붙인다.
+      // 입력 내용을 GitHub 이슈 작성 화면에 미리 채워 열어 준다.
+      // (정적 사이트라 토큰 없이 직접 등록할 수는 없다 — 마지막 제출은 사용자가 누른다)
+      plugins: [
+        function (hook, vm) {
+          hook.afterEach(function (html, next) {
+            var file = (vm.route && vm.route.file) || '';
+            if (!file) return next(html);
+            next(html + ADA.reportBox(file));
+          });
+          hook.doneEach(function () { ADA.bind(); });
+        }
+      ]
+    };
+  </script>
+
+  <!--
+    수식(LaTeX) 렌더링: docsify-katex는 markdown이 파싱되기 전에
+    $...$ / $$...$$ 구간을 미리 떼어내 보호해야 하므로,
+    반드시 docsify 본체(아래)보다 "먼저" 로드해야 합니다.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docsify-katex@1.4.3/dist/docsify-katex.js"></script>
+
+  <!-- Docsify 본체 (빌드 과정 없이 CDN 스크립트만으로 동작) -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+
+  <!-- 파이썬 구문 강조 (docsify 내장 Prism 은 python 을 기본 포함하지 않는다) -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+
+  <!-- 검색 플러그인 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <!-- 코드블록 복사 버튼 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  <!-- 이전/다음 페이지 네비게이션 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  <!-- 이미지 클릭 시 확대 -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-image-zoom@0.2.0/dist/zoom.min.js"></script>
+</body>
+</html>
