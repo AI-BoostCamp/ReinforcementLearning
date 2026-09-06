@@ -36,6 +36,7 @@ REINFORCE · Actor-Critic · DDPG 를 CartPole · Pendulum 에서 구현한다. 
 - [2.6 SARSA Algorithm](ch02_강화학습/2.6_SARSA.md) — On-policy TD 제어, CliffWalking 실습
 - [2.7 Off-policy Control 과 Q-Learning](ch02_강화학습/2.7_QLearning.md) — Importance sampling,
   Q-Learning, Maximization bias 와 Double Q-Learning, SARSA 와의 비교 실습
+- [2장을 마치며](ch02_강화학습/99_2장마무리.md) — 일곱 절을 잇는 네 질문과 자기 점검
 
 **3장 심층강화학습(Deep Reinforcement Learning)** — [장 개요](ch03_심층강화학습/00_3장개요_장개요.md)
 
@@ -50,6 +51,7 @@ REINFORCE · Actor-Critic · DDPG 를 CartPole · Pendulum 에서 구현한다. 
   REINFORCE 와 baseline, Return Normalization, W&B logging, TD Actor-Critic(A2C)
 - [3.6 DDPG](ch03_심층강화학습/3.6_DDPG.md) — Deterministic Policy Gradient, Actor-Critic +
   Replay + Target + Soft update, Pendulum · LunarLander 실습
+- [3장을 마치며](ch03_심층강화학습/99_3장마무리.md) — 가치의 길과 정책의 길, 둘이 만나는 곳
 
 **4장 Advanced Deep RL** — [장 개요](ch04_AdvancedDeepRL/00_4장개요_장개요.md)
 
@@ -65,6 +67,7 @@ REINFORCE · Actor-Critic · DDPG 를 CartPole · Pendulum 에서 구현한다. 
   loss, GAE, CartPole 실습
 - [4.6 SAC](ch04_AdvancedDeepRL/4.6_SAC.md) — Maximum Entropy RL, soft value · soft policy
   iteration, Squashed Gaussian 과 reparameterization, temperature 학습(SAC-v2), LunarLander 실습
+- [4장을 마치며](ch04_AdvancedDeepRL/99_4장마무리.md) — 여섯 알고리즘을 관통하는 세 질문
 
 **부록**
 

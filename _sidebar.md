@@ -11,6 +11,7 @@
   - [2.5 Temporal-Difference Method](ch02_강화학습/2.5_TD.md)
   - [2.6 SARSA Algorithm](ch02_강화학습/2.6_SARSA.md)
   - [2.7 Off-policy Control 과 Q-Learning](ch02_강화학습/2.7_QLearning.md)
+  - [2장을 마치며](ch02_강화학습/99_2장마무리.md)
 - **3장 Deep Reinforcement Learning**
   - [3장 개요](ch03_심층강화학습/00_3장개요_장개요.md)
   - [3.1 Function Approximation](ch03_심층강화학습/3.1_FunctionApproximation.md)
@@ -19,6 +20,7 @@
   - [3.4 Deep Q-Network(DQN)](ch03_심층강화학습/3.4_DQN.md)
   - [3.5 Policy Gradient](ch03_심층강화학습/3.5_PolicyGradient.md)
   - [3.6 DDPG](ch03_심층강화학습/3.6_DDPG.md)
+  - [3장을 마치며](ch03_심층강화학습/99_3장마무리.md)
 - **4장 Advanced Deep RL**
   - [4장 개요](ch04_AdvancedDeepRL/00_4장개요_장개요.md)
   - [4.1 Deep RL Project 준비](ch04_AdvancedDeepRL/4.1_프로젝트준비.md)
@@ -27,5 +29,6 @@
   - [4.4 A3C](ch04_AdvancedDeepRL/4.4_A3C.md)
   - [4.5 PPO](ch04_AdvancedDeepRL/4.5_PPO.md)
   - [4.6 SAC](ch04_AdvancedDeepRL/4.6_SAC.md)
+  - [4장을 마치며](ch04_AdvancedDeepRL/99_4장마무리.md)
 - **부록**
   - [부록 A. 최신 알고리즘과 연구 동향](부록A_Appendix/부록A_Appendix.md)
