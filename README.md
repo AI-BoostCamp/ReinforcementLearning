@@ -4,7 +4,7 @@
 
 **표(table) 기반 강화학습의 원리에서 시작해, 신경망을 결합한 심층강화학습(DQN · Policy
 Gradient · DDPG)과 그 약점을 고친 최신 알고리즘(DDQN · TD3 · A3C · PPO · SAC)까지** 다루는
-교재다. 강의 "Deep Reinforcement Learning(심층강화학습 심화)"(홍근선, ㈜한국AI연구소)의
+교재다. 강의 "Deep Reinforcement Learning(심층강화학습)"(홍근선, ㈜한국AI연구소)의
 슬라이드를 읽는 글로 다시 쓴 것으로, 모든 실습은 Google Colab 노트북(Keras/TensorFlow, 일부
 PyTorch 이식판 병기)과 함께 제공된다.
 
@@ -100,5 +100,4 @@ REINFORCE · Actor-Critic · DDPG 를 CartPole · Pendulum 에서 구현한다. 
 
 ## 저자
 
-**홍근선** — ㈜한국AI연구소 대표이사 · 전자공학 박사수료 · 전자계산기 기술사 ·
-웹게이트(주) 대표이사 · 남서울대학교 전산과 교수 (gshong@ai-camp.kr)
+**홍근선** — ㈜한국AI연구소 대표이사 · 전자계산기 기술사 · 성균관대학교 겸임교수 (gshong@ai-camp.kr)
