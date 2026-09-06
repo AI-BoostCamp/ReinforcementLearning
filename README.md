@@ -82,11 +82,10 @@ REINFORCE · Actor-Critic · DDPG 를 CartPole · Pendulum 에서 구현한다. 
 
 실행 전 준비:
 
-- **`lib/` 폴더** — 2장의 Gridworld 노트북과 여러 실습이 `code/lib/`(`gridworld.py`,
-  `variable_print.py`, `render.py` 등)를 쓴다. 노트북은 Google Drive 의
-  `내 드라이브/Colab Notebooks/lib` 를 `sys.path` 에 넣으므로, [`code/lib/`](https://github.com/AI-BoostCamp/ReinforcementLearning/tree/main/code/lib)
-  폴더를 내 Drive 의 `Colab Notebooks/lib` 에 복사해 두고 노트북 첫 셀에서 Drive 를 mount 한다.
-  학습된 모델을 저장하는 실습은 같은 곳의 `Colab Notebooks/models/DRL/` 폴더를 쓴다.
+- **`lib/` 준비는 자동** — 2장의 Gridworld 노트북과 여러 실습이 `code/lib/`(`gridworld.py`,
+  `variable_print.py`, `render.py` 등)를 쓴다. 모든 노트북의 **첫 셀**이 이 저장소에서 `lib/` 를
+  받아 `sys.path` 에 넣으므로 Google Drive 연결 없이 그대로 실행하면 된다. 학습된 모델과 영상은
+  Colab 세션의 `/content/models/DRL/` 에 저장되며 세션이 끝나면 사라진다 — 남기려면 Drive 에 복사한다.
 - **환경 점검** — [`code/0.0.test_RL.ipynb`](code/0.0.test_RL.ipynb) 로 Colab VM 의 Python ·
   TensorFlow · Gym 버전과 렌더링 도구를 먼저 확인한다.
 - **런타임** — 2장과 3장 초반은 CPU 로 충분하다. 3.4 의 Atari Breakout, 4장의 LunarLander
